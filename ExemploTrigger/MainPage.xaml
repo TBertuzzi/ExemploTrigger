@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ExemploTrigger" 
+             x:Class="ExemploTrigger.MainPage" Padding="0,40,0,0" >
+    <StackLayout>
+        <Label Text="Vamos brincar com as triggers!"  />
+        
+       <Label Text="Property Trigger:"  />   
+        
+     <Entry Placeholder="Digite seu nome"
+        BackgroundColor="White" >
+          <Entry.Triggers>
+              <Trigger TargetType="Entry"
+                       Property="Text" 
+                       Value="Bertuzzi">
+                  <Setter Property="BackgroundColor" Value="Red" />
+              </Trigger>
+          </Entry.Triggers>
+     </Entry>
+        
+         <Label Text="Data Trigger:"  />   
+        
+      <Entry Placeholder="Nome"
+              Text="{Binding Nome}" />
+
+        <Entry Placeholder="Sobrenome" Text="{Binding SobreNome}" >
+            <Entry.Triggers>
+                <DataTrigger TargetType="Entry"
+                     Binding="{Binding Nome}"
+                     Value="">
+                  <Setter Property="IsEnabled" Value="False" />
+             </DataTrigger>
+           </Entry.Triggers>
+        </Entry>
+        
+         <Label Text="Event Trigger:"  />   
+        
+       <Button Text="Mudar minha cor"
+                BackgroundColor="Green"
+                TextColor="White">
+          <Button.Triggers>
+                 <EventTrigger Event="Clicked">
+                    <local:BackGroundColorButtonTriggerAction />
+                </EventTrigger>
+           </Button.Triggers>
+        </Button>
+        
+        
+          <Label Text="Multi Trigger:"  />   
+        
+        <Entry
+              Text="{Binding Login}" 
+              Placeholder="Usuario" />
+
+        <Entry 
+              Text="{Binding Senha}" 
+              Placeholder="Senha"
+              IsPassword="true" />
+        
+        <Button Text="Entrar"
+                BackgroundColor="Green"
+                TextColor="White"
+                IsEnabled="false">
+              <Button.Triggers>
+                <MultiTrigger TargetType="Button">
+                  <MultiTrigger.Conditions>
+                    <BindingCondition Binding="{Binding Login}"
+                                      Value="Bertuzzi" />
+                     <BindingCondition Binding="{Binding Senha}"
+                                      Value="1234" />
+                  </MultiTrigger.Conditions>
+                  <Setter Property="IsEnabled" Value="true" />
+                </MultiTrigger>
+              </Button.Triggers>
+       </Button>
+        
+    </StackLayout>
+</ContentPage>
